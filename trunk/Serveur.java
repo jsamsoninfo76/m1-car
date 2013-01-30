@@ -1,17 +1,11 @@
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Serveur {
-	
-	private ObjectOutputStream out;
-	private ObjectInputStream in;
 	private ServerSocket ss;
 	private String message;
-	private DataOutputStream dos;
 	
 	public Serveur(){}
 	
@@ -26,35 +20,22 @@ public class Serveur {
 			System.out.println("Connection received");
 			
 			//3. get Input and Output streams
-			out = new ObjectOutputStream(client.getOutputStream());
-			dos = new DataOutputStream(out);
-			in = new ObjectInputStream(client.getInputStream());
-			sendMessage("220 Bienvenue\n");
+			DataOutputStream dos = new DataOutputStream(client.getOutputStream());
+			dos.writeBytes("220 Hello\n");
+			System.out.println("server>220 Hello\n");
 			
 			//4. The two parts communicate via the input and output streams
-			do{
-				try{
-					message = (String)in.readObject();
-					System.out.println("client>" + message);
-					if (message.equals("bye"))
-						sendMessage("bye");
-				}
-				catch(ClassNotFoundException classnot){
-					System.err.println("Data received in unknown format");
-				}
-			}while(!message.equals("bye"));
-		}
-		catch(IOException ioException){
-			ioException.printStackTrace();
-		}
-	}
-	
-	public void sendMessage(String msg)
-	{
-		try{
-			dos.writeBytes(msg);
-			out.flush();
-			System.out.println("server>" + msg);
+//			do{
+//				try{
+//					message = (String)in.readObject();
+//					System.out.println("client>" + message);
+//					if (message.equals("bye"))
+//						dos.writeBytes(  "bye");
+//				}
+//				catch(ClassNotFoundException classnot){
+//					System.err.println("Data received in unknown format");
+//				}
+//			}while(!message.equals("bye"));
 		}
 		catch(IOException ioException){
 			ioException.printStackTrace();
@@ -64,8 +45,6 @@ public class Serveur {
 	public static void main(String args[])
 	{
 		Serveur s = new Serveur();
-		//while(true){
-			s.run();
-		//}
+		s.run();
 	}
 }
