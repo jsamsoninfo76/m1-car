@@ -18,7 +18,7 @@ System.out.println("****************************");
           try
           {
  
-               ServerSocket s = new ServerSocket(100);
+               ServerSocket s = new ServerSocket(5000);
                for(;;)
                {
                     Socket incoming = s.accept();
