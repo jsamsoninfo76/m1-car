@@ -1,5 +1,6 @@
 package commandes;
 
+import java.io.File;
 import java.io.IOException;
 
 public class CommandCwd extends Command {
@@ -9,12 +10,17 @@ public class CommandCwd extends Command {
 	}
 
 	public void executer() throws IOException{
-		if (commandMgr.reponse.substring(4).startsWith("/")) {
-			commandMgr.directory = commandMgr.reponse.substring(4) + "/";
-		} else {
-			commandMgr.directory += commandMgr.reponse.substring(4) + "/";
-		}
-		commandMgr.dataOutputStreamControl.writeBytes("250 Directory changed to " + commandMgr.directory + " \n");
+		File local = new File(commandMgr.directory.getAbsolutePath()+"/"+commandMgr.reponse[1]);
+        File tmp = new File(commandMgr.reponse[1]);
+        if(local.exists() && local.isDirectory()) {
+        	commandMgr.directory = local;
+            commandMgr.dataOutputStreamControl.writeBytes("250 CWD command successful.\n");
+        } else if(tmp.exists() && tmp.isDirectory()) {
+        	commandMgr.directory = tmp;
+            commandMgr.dataOutputStreamControl.writeBytes("250 CWD command successful.\n");
+        } else {
+        	commandMgr.dataOutputStreamControl.writeBytes("550 "+commandMgr.reponse[1]+": No such file or directory.\n");
+        }
 		commandMgr.recepteur.cwd();
 	}
 }

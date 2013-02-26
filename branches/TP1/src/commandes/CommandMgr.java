@@ -2,6 +2,7 @@ package commandes;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,8 +21,8 @@ public class CommandMgr {
 	protected Socket socketControl;
 	protected DataOutputStream dataOutputStreamControl;
 	protected DataOutputStream dataOutputStreamDonnee;
-	protected String directory;
-	public String reponse;
+	protected File directory;
+	public String[] reponse;
 	protected String password;
 	protected String user;
 	protected int port = 7000;
@@ -49,7 +50,8 @@ public class CommandMgr {
 		outputStreamDonnee  	= null;
 		dataOutputStreamDonnee 	= null;
 		reponse                	= null;
-		directory      			= "/Users/Spider/ftp/";
+		File tmp 				= new File("");
+		directory      	        = tmp.getAbsoluteFile();
 	}
 	
 	public void recordHistory(Command command){
@@ -76,12 +78,12 @@ public class CommandMgr {
 	public void setServerSocketControl(ServerSocket serverSocketControl){
 		this.serverSocketControl = serverSocketControl;
 	}
-	public void setReponse(String reponse){
+	public void setReponse(String[] reponse){
 		this.reponse = reponse;
 	}
 	
 	/* Getters */
-	public String getReponse(){ 
+	public String[] getReponse(){ 
 		return this.reponse;
 	}
 	public BufferedReader getBufferedReader(){

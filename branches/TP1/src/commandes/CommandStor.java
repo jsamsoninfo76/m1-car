@@ -14,11 +14,11 @@ public class CommandStor extends Command {
 	public void executer() throws IOException {	
 		FileOutputStream fos	 = null;
 		commandMgr.socketDonnee  = null;				
-		File file = new File(commandMgr.directory + commandMgr.reponse.substring((5)));
+		File file = new File(commandMgr.directory + commandMgr.reponse[1]);
 		fos = new FileOutputStream(file);
 				
 		commandMgr.socketDonnee = commandMgr.serverSocketDonnee.accept();
-		commandMgr.dataOutputStreamControl.writeBytes("150 Opening " + commandMgr.directory + commandMgr.reponse.substring(5) + " mode data connection.\n");
+		commandMgr.dataOutputStreamControl.writeBytes("150 Opening " + commandMgr.directory + commandMgr.reponse[1] + " mode data connection.\n");
 
 		InputStream in = commandMgr.socketDonnee.getInputStream();
 

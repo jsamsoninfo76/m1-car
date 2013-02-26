@@ -9,7 +9,7 @@ public class CommandPass extends Command {
 	}
 	
 	public void executer() throws IOException {
-		commandMgr.password = commandMgr.reponse.substring(5); 
+		commandMgr.password = commandMgr.reponse[1]; 
 		
 		if (commandMgr.password.equalsIgnoreCase("anonymous") || commandMgr.password.equalsIgnoreCase("pom") || commandMgr.password.equalsIgnoreCase("jerem"))
 		{

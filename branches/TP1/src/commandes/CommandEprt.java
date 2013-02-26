@@ -10,7 +10,7 @@ public class CommandEprt extends Command {
 	}
 	
 	public void executer() throws IOException {		
-		commandMgr.dataOutputStreamControl.writeBytes("220 I have no idea what i m doing \n");
+		commandMgr.dataOutputStreamControl.writeBytes("220 Not implemented yet \n");
 		commandMgr.recepteur.eprt();
 	}
 

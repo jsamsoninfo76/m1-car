@@ -9,7 +9,7 @@ public class CommandUser extends Command {
 	}
 	
 	public void executer() throws IOException {
-		commandMgr.user = commandMgr.reponse.substring(5);
+		commandMgr.user = commandMgr.reponse[1];
 		
 		if (commandMgr.user.equalsIgnoreCase("anonymous") || commandMgr.user.equalsIgnoreCase("pom") || commandMgr.user.equalsIgnoreCase("jerem"))
 			commandMgr.dataOutputStreamControl.writeBytes("331 User correct \n");

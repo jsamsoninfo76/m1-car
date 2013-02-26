@@ -1,5 +1,6 @@
 package commandes;
 
+import java.io.File;
 import java.io.IOException;
 
 public class CommandCdup extends Command {
@@ -9,14 +10,11 @@ public class CommandCdup extends Command {
 	}
 	
 	void executer() throws IOException {		
-		int avantDerniereoccuranceDuSlash=0;
-		int dernieroccuranceDuSlash=0;
-		for(int i=0;i<commandMgr.directory.length();i++){
-			if (commandMgr.directory.charAt(i)=='/') { avantDerniereoccuranceDuSlash=dernieroccuranceDuSlash;
-			dernieroccuranceDuSlash=i;}
-		}
-		commandMgr.directory=commandMgr.directory.substring(0,avantDerniereoccuranceDuSlash)+"/";
-		commandMgr.dataOutputStreamControl.writeBytes("250 Cdup OK !!! \n");
-		commandMgr.recepteur.cdup();
+        if(commandMgr.directory.getParentFile().exists() && commandMgr.directory.getParentFile().isDirectory()) {
+        	commandMgr.directory = commandMgr.directory.getParentFile();
+        	commandMgr.dataOutputStreamControl.writeBytes("250 CWD command successful.\n");
+        } else {
+        	commandMgr.dataOutputStreamControl.writeBytes("550 : No such file or directory.\n");
+        }
 	}
 }

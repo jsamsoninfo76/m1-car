@@ -16,10 +16,9 @@ public class CommandList extends Command {
 		commandMgr.outputStreamDonnee  = commandMgr.socketDonnee.getOutputStream();
 		commandMgr.dataOutputStreamDonnee = new DataOutputStream(commandMgr.outputStreamDonnee);
 
-		File pwd = new File(commandMgr.directory);
-		if (pwd.listFiles() != null) {
+		if (commandMgr.directory.listFiles() != null) {
 			String laReponse = "";
-			for (File file : pwd.listFiles()) {
+			for (File file : commandMgr.directory.listFiles()) {
 				if (file.isFile()) {
 					laReponse = "\053,r,i" + file.length() + ",\011"
 							+ file.getName() + "\015\012";

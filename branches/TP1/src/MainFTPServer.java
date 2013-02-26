@@ -9,7 +9,7 @@ public class MainFTPServer {
     public static void main(String[] args) throws IOException {
         int portPasv = 3929;
         int numeroSocket = 0;
-        int port = 7000;
+        int port = 2121;
         
         
      // Création socket de control
@@ -45,29 +45,34 @@ public class MainFTPServer {
             			
             	commandInvoker.invoke("HELLO");
             	
-            	commandMgr.setReponse(commandMgr.getBufferedReader().readLine());
+            	commandMgr.setReponse(commandMgr.getBufferedReader().readLine().split(" "));
         	
         		/* ProcessRequest */
         		while(commandMgr.reponse!=null) 
         		{
-        			System.out.println("REPONSE : " + commandMgr.reponse);
+        			for (int i=0 ; i<commandMgr.reponse.length ; i++)
+        				System.out.print("REPONSE : " + commandMgr.reponse[i]);
+        			System.out.println();
         			
-        			if (commandMgr.reponse.startsWith("USER")) 		{commandInvoker.invoke("USER");}
-        			else { if (commandMgr.reponse.startsWith("PASS"))  {commandInvoker.invoke("PASS");} 
-        			else { if (commandMgr.reponse.startsWith("SYST"))  {commandInvoker.invoke("SYST");}
-        			else { if (commandMgr.reponse.startsWith("FEAT"))  {commandInvoker.invoke("FEAT");}
-        			else { if (commandMgr.reponse.startsWith("PWD"))   {commandInvoker.invoke("PWD");}
-        			else { if (commandMgr.reponse.startsWith("TYPE I")){commandInvoker.invoke("TYPE I");}
-        			else { if (commandMgr.reponse.startsWith("PASV"))  {commandInvoker.invoke("PASV");} 			
-        			else { if (commandMgr.reponse.startsWith("EPRT"))  {commandInvoker.invoke("EPRT");}	
-        			else { if (commandMgr.reponse.startsWith("LIST"))  {commandInvoker.invoke("LIST");} 
-        			else { if (commandMgr.reponse.startsWith("CWD"))   {commandInvoker.invoke("CWD");} 
-        			else { if (commandMgr.reponse.startsWith("CDUP"))  {commandInvoker.invoke("CDUP");} 
-        			else { if (commandMgr.reponse.startsWith("RETR"))  {commandInvoker.invoke("RETR");} 
-        			else { if (commandMgr.reponse.startsWith("STOR"))  {commandInvoker.invoke("STOR");} 
-        			else { if (commandMgr.reponse.startsWith("DELE"))  {commandInvoker.invoke("DELE");} 
-        			}}}}}}}}}}}}}
-        			commandMgr.setReponse(commandMgr.getBufferedReader().readLine());
+        			if (commandMgr.reponse[0].equals("USER")) 		{commandInvoker.invoke("USER");}
+        			else { if (commandMgr.reponse[0].equals("PASS"))  {commandInvoker.invoke("PASS");} 
+        			else { if (commandMgr.reponse[0].equals("SYST"))  {commandInvoker.invoke("SYST");}
+        			else { if (commandMgr.reponse[0].equals("FEAT"))  {commandInvoker.invoke("FEAT");}
+        			else { if (commandMgr.reponse[0].equals("PWD"))   {commandInvoker.invoke("PWD");}
+        			else { if (commandMgr.reponse[0].equals("TYPE"))  {commandInvoker.invoke("TYPE I");}
+        			else { if (commandMgr.reponse[0].equals("PASV"))  {commandInvoker.invoke("PASV");} 			
+        			else { if (commandMgr.reponse[0].equals("EPRT"))  {commandInvoker.invoke("EPRT");}	
+        			else { if (commandMgr.reponse[0].equals("LIST"))  {commandInvoker.invoke("LIST");} 
+        			else { if (commandMgr.reponse[0].equals("CWD"))   {commandInvoker.invoke("CWD");} 
+        			else { if (commandMgr.reponse[0].equals("CDUP"))  {commandInvoker.invoke("CDUP");} 
+        			else { if (commandMgr.reponse[0].equals("RETR"))  {commandInvoker.invoke("RETR");} 
+        			else { if (commandMgr.reponse[0].equals("STOR"))  {commandInvoker.invoke("STOR");} 
+        			else { if (commandMgr.reponse[0].equals("DELE"))  {commandInvoker.invoke("DELE");}
+        			else { if (commandMgr.reponse[0].equals("MKD"))   {commandInvoker.invoke("MKD");}
+        			else { if (commandMgr.reponse[0].equals("RMD"))   {commandInvoker.invoke("RMD");}
+        			}}}}}}}}}}}}}}}
+        			
+        			commandMgr.setReponse(commandMgr.getBufferedReader().readLine().split(" "));
         		}
         		
         		if (commandMgr.serverSocketDonnee!=null) {	commandMgr.serverSocketDonnee.close(); }

@@ -24,6 +24,8 @@ public class CommandInvoker {
 		commandMap.put("TYPE I", new CommandTypeI(commandMgr));
 		commandMap.put("USER", new CommandUser(commandMgr));
 		commandMap.put("DELE", new CommandDele(commandMgr));
+		commandMap.put("MKD", new CommandMkd(commandMgr));
+		commandMap.put("RMD", new CommandMkd(commandMgr));
 	}
 	public void invoke(String command) throws IOException{
 		commandMgr.recordHistory(commandMap.get(command));
