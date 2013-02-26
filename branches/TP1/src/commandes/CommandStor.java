@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ServerSocket;
 
 public class CommandStor extends Command {
 
@@ -13,11 +14,17 @@ public class CommandStor extends Command {
 	
 	public void executer() throws IOException {	
 		File fichier = new File(commandMgr.directory.getAbsolutePath()+"/"+commandMgr.reponse[1]);
+		
         if(fichier.isDirectory()) {
         	commandMgr.dataOutputStreamControl.writeBytes("550 Cannot STOR\n");
         } else {
             fichier.createNewFile();
             FileOutputStream out = new FileOutputStream(fichier);
+            /*if (commandMgr.socketDonnee == null) {
+            	System.out.println("TOTO");
+            	commandMgr.serverSocketDonnee = new ServerSocket(0);
+            	commandMgr.socketDonnee = commandMgr.serverSocketDonnee.accept();
+            }*/
             InputStream is = commandMgr.socketDonnee.getInputStream();
 
             int read = 0;

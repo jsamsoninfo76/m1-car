@@ -10,8 +10,17 @@ public class CommandPasv extends Command {
 	}
 	
 	public void executer() throws IOException {
+		System.out.println("Port Passif Avant: " + commandMgr.portPasv);
+		commandMgr.portPasv++;
+	
+		System.out.println("Port Passif Apres : " + commandMgr.portPasv);
+		commandMgr.setPortPasv(commandMgr.portPasv);
+		System.out.println("Port Passif Apres 2 : " + commandMgr.portPasv);
+		
 		String s=Integer.toHexString(commandMgr.portPasv);
-		commandMgr.serverSocketDonnee = new ServerSocket(commandMgr.portPasv);
+		
+		commandMgr.setServerSocketDonnee(new ServerSocket(commandMgr.portPasv));
+		
 		int i;
 		int j;
 		

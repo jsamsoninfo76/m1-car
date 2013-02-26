@@ -29,7 +29,7 @@ public class CommandMgr {
 	public String[] reponse;
 	protected String password;
 	protected String user;
-	protected int port = 7000;
+	protected int port = 7005;
 	protected int numeroSocket;
 	protected int portPasv;
 	protected InputStream inputStream;
@@ -87,6 +87,11 @@ public class CommandMgr {
 	public void setServerSocketControl(ServerSocket serverSocketControl){
 		this.serverSocketControl = serverSocketControl;
 	}
+	
+	public void setServerSocketDonnee(ServerSocket serverSocketDonnee){
+		this.serverSocketDonnee = serverSocketDonnee;
+	}
+	
 	public void setReponse(String[] reponse){
 		this.reponse = reponse;
 	}
