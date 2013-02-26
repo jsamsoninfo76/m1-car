@@ -9,7 +9,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class CommandMgr {
 	protected Recepteur recepteur;
@@ -31,6 +33,7 @@ public class CommandMgr {
 	protected InputStream inputStream;
 	protected InputStreamReader inputStreamReader;
 	public BufferedReader bufferedReader;
+	protected Map<String, String> userPass ;
 	
 	private LinkedList commandHistory = new LinkedList<Command>();
 	
@@ -51,6 +54,11 @@ public class CommandMgr {
 		dataOutputStreamDonnee 	= null;
 		reponse                	= null;
 		directory      	        = new File("").getAbsoluteFile();
+		
+		 userPass = new HashMap<String, String>() ;
+         userPass.put("anonymous", "anonymous" );
+         userPass.put("pom", "pom") ;
+         userPass.put("je", "je") ;
 	}
 	
 	public void recordHistory(Command command){
@@ -99,4 +107,8 @@ public class CommandMgr {
 			e.printStackTrace();
 		}
 	}
+	
+	 public void closeSocket() throws IOException{
+         socketControl.close() ;
+	 }
 }
