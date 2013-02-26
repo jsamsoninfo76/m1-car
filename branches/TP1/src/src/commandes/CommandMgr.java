@@ -8,14 +8,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class CommandMgr {
 	protected Recepteur recepteur;
 	protected OutputStream outputStreamDonnee;
 	protected OutputStream outputStreamControl;
 	public ServerSocket serverSocketDonnee;
-	protected ServerSocket serverSocketControl;
+//	protected ServerSocket serverSocketControl;
 	protected Socket socketDonnee;
 	protected Socket socketControl;
 	protected DataOutputStream dataOutputStreamControl;
@@ -30,8 +32,8 @@ public class CommandMgr {
 	protected InputStream inputStream;
 	protected InputStreamReader inputStreamReader;
 	public BufferedReader bufferedReader;
-	
 	private LinkedList commandHistory = new LinkedList<Command>();
+	protected Map<String, String> userPass ;
 	
 	/* Init methodes */
 	public void initialisationDeControl() throws IOException{
@@ -49,7 +51,12 @@ public class CommandMgr {
 		outputStreamDonnee  	= null;
 		dataOutputStreamDonnee 	= null;
 		reponse                	= null;
-		directory      			= "/Users/Spider/ftp/";
+		directory      			= "/Users/Pom/ftp/";
+		
+		userPass = new HashMap<String, String>() ;
+		userPass.put("anonymous", "anonymous" );
+		userPass.put("pom", "pom") ;
+		userPass.put("jerem", "jerem") ;
 	}
 	
 	public void recordHistory(Command command){
@@ -73,9 +80,9 @@ public class CommandMgr {
 	public void setSocketControl(Socket socketControl){
 		this.socketControl = socketControl;
 	}
-	public void setServerSocketControl(ServerSocket serverSocketControl){
+/*	public void setServerSocketControl(ServerSocket serverSocketControl){
 		this.serverSocketControl = serverSocketControl;
-	}
+	}*/
 	public void setReponse(String reponse){
 		this.reponse = reponse;
 	}
@@ -86,6 +93,10 @@ public class CommandMgr {
 	}
 	public BufferedReader getBufferedReader(){
 		return bufferedReader;
+	}
+	
+	public void closeSocket() throws IOException{
+		socketControl.close() ;
 	}
 	
 	/* Init The Server*/
