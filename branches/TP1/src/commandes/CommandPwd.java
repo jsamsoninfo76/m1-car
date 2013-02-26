@@ -1,8 +1,6 @@
 package commandes;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-
 
 public class CommandPwd extends Command {
 	

@@ -67,7 +67,6 @@ public class MainFTPServer {
         			else { if (commandMgr.reponse.startsWith("STOR"))  {commandInvoker.invoke("STOR");} 
         			else { if (commandMgr.reponse.startsWith("DELE"))  {commandInvoker.invoke("DELE");} 
         			}}}}}}}}}}}}}
-        			else commandInvoker.invoke("HELLO");
         			commandMgr.setReponse(commandMgr.getBufferedReader().readLine());
         		}
         		
