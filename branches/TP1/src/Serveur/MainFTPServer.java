@@ -1,6 +1,8 @@
+package Serveur;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 
 /**
  * Classe MainFTPServer correspondant au main qui initialise le serveur
@@ -10,7 +12,7 @@ import java.net.Socket;
 public class MainFTPServer {
     public static void main(String[] args) throws IOException {
         int numeroSocket = 0;
-        int port = 2121;
+        int port = 7001;
         int maxConnections = 0 ;
         
      // Création socket de control

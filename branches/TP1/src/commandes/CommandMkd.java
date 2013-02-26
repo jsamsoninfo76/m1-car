@@ -17,6 +17,7 @@ public class CommandMkd extends Command {
          } else {
         	 commandMgr.dataOutputStreamControl.writeBytes("550 directory not created\n");
          }
+         commandMgr.recepteur.mkd();
 	}
 
 }
