@@ -50,8 +50,7 @@ public class CommandMgr {
 		outputStreamDonnee  	= null;
 		dataOutputStreamDonnee 	= null;
 		reponse                	= null;
-		File tmp 				= new File("");
-		directory      	        = tmp.getAbsoluteFile();
+		directory      	        = new File("").getAbsoluteFile();
 	}
 	
 	public void recordHistory(Command command){

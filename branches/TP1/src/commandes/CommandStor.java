@@ -12,25 +12,26 @@ public class CommandStor extends Command {
 	}
 	
 	public void executer() throws IOException {	
-		FileOutputStream fos	 = null;
-		commandMgr.socketDonnee  = null;				
-		File file = new File(commandMgr.directory + commandMgr.reponse[1]);
-		fos = new FileOutputStream(file);
-				
-		commandMgr.socketDonnee = commandMgr.serverSocketDonnee.accept();
-		commandMgr.dataOutputStreamControl.writeBytes("150 Opening " + commandMgr.directory + commandMgr.reponse[1] + " mode data connection.\n");
+		File fichier = new File(commandMgr.directory.getAbsolutePath()+"/"+commandMgr.reponse[1]);
+        if(fichier.isDirectory()) {
+        	commandMgr.dataOutputStreamControl.writeBytes("550 Cannot STOR\n");
+        } else {
+            fichier.createNewFile();
+            FileOutputStream out = new FileOutputStream(fichier);
+            InputStream is = commandMgr.socketDonnee.getInputStream();
 
-		InputStream in = commandMgr.socketDonnee.getInputStream();
+            int read = 0;
+            byte[] bytes = new byte[1024];
 
-		byte buf[] = new byte[1024];
-		int nread;
-		while ((nread = in.read(buf)) > 0)
-		{
-			fos.write(buf, 0, nread);
-		}
-		fos.flush();
-		fos.close();
-		commandMgr.serverSocketDonnee.close();		
+            while ((read = is.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            is.close();
+            out.flush();
+            out.close();
+            commandMgr.dataOutputStreamControl.writeBytes("226 File successfully transferred\n");
+        }
 		commandMgr.recepteur.stor();
 	}
 

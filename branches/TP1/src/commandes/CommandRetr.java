@@ -14,25 +14,20 @@ public class CommandRetr extends Command {
 	
 	public void executer() throws IOException {	
 		commandMgr.dataOutputStreamControl.writeBytes("150 Accepted data connection\n");
-		
-        //Envoi du fichier au client
-        try {
-            File fichier = new File(commandMgr.directory + commandMgr.reponse[1]);
-            System.out.println(commandMgr.directory + commandMgr.reponse[1]);
-            byte[] mybytearray = new byte[(int) fichier.length()];
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(fichier));
-            bis.read(mybytearray, 0, mybytearray.length);
-            
-            commandMgr.socketDonnee = commandMgr.serverSocketDonnee.accept();
-            commandMgr.outputStreamDonnee = commandMgr.socketDonnee.getOutputStream();
-            
-            commandMgr.outputStreamDonnee.write(mybytearray, 0, mybytearray.length);
-            commandMgr.outputStreamDonnee.flush();
-            commandMgr.outputStreamDonnee.close();
-            commandMgr.dataOutputStreamControl.writeBytes("226 File successfully transferred\n");
-        } catch (IOException e){
-          
-        }
+		 try {
+	            File fichier = new File(commandMgr.reponse[1]);
+	            byte[] mybytearray = new byte[(int) fichier.length()];
+	            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(fichier));
+	            bis.read(mybytearray, 0, mybytearray.length);
+	            OutputStream os = commandMgr.socketDonnee.getOutputStream();
+	            os.write(mybytearray, 0, mybytearray.length);
+	            os.flush();
+	            os.close();
+	            commandMgr.dataOutputStreamControl.writeBytes("226 File successfully transferred\n");
+	        } catch (IOException e){
+	            e.printStackTrace();
+	            System.exit(0);
+	        }
 	}
 
 }
