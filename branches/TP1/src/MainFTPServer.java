@@ -10,7 +10,7 @@ import java.net.Socket;
 public class MainFTPServer {
     public static void main(String[] args) throws IOException {
         int numeroSocket = 0;
-        int port = 7000;
+        int port = 2121;
         int maxConnections = 0 ;
         
      // Création socket de control
