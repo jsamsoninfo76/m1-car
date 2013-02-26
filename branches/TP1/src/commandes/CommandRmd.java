@@ -10,6 +10,7 @@ public class CommandRmd extends Command {
 	}
 	
 	public void executer() throws IOException {
+		System.out.println("Supprimer -> " + commandMgr.reponse[1]);
 		 File tmp = new File(commandMgr.reponse[1]);
          if(tmp.exists() && tmp.isDirectory()) {
              if(tmp.delete()){
@@ -20,5 +21,6 @@ public class CommandRmd extends Command {
          } else {
         	 commandMgr.dataOutputStreamControl.writeBytes("550 directory not found\n");
          }
+        commandMgr.recepteur.rmd();
 	}
 }

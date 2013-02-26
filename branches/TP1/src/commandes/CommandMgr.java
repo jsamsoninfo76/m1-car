@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import Recepteur.Recepteur;
+
 public class CommandMgr {
 	protected Recepteur recepteur;
 	protected OutputStream outputStreamDonnee;
