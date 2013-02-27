@@ -5,7 +5,7 @@ import java.net.Socket;
 
 
 /**
- * Classe MainFTPServer correspondant au main qui initialise le serveur
+ * Classe Main correspondant au main qui initialise le serveur
  * @author Jeremie Samson - Victor Paumier 
  */
 
