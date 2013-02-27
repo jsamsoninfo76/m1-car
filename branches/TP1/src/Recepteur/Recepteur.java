@@ -14,7 +14,7 @@ public class Recepteur {
 	public void pwd()   { System.out.println("Pwd   effectue.");  }
 	public void typeI() { System.out.println("Type I effectue."); }
 	public void pasv()  { System.out.println("Pasv effectue.");   }
-	public void eprt()  { System.out.println("Eprt effectue.");   }
+	public void retr()  { System.out.println("Retr effectue.");   }
 	public void list()  { System.out.println("List effectue.");   }
 	public void cwd()   { System.out.println("Cwd effectue.");    }
 	public void cdup()  { System.out.println("Cdup effectue.");   }

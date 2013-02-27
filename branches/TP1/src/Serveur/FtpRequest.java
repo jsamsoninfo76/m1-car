@@ -61,8 +61,7 @@ public class FtpRequest implements Runnable {
 	                else { if (commandMgr.reponse[0].equals("FEAT"))  {commandInvoker.invoke("FEAT");}
 	                else { if (commandMgr.reponse[0].equals("PWD"))   {commandInvoker.invoke("PWD");}
 	                else { if (commandMgr.reponse[0].equals("TYPE"))  {commandInvoker.invoke("TYPE I");}
-	                else { if (commandMgr.reponse[0].equals("PASV"))  {commandInvoker.invoke("PASV");}                      
-	                else { if (commandMgr.reponse[0].equals("EPRT"))  {commandInvoker.invoke("EPRT");}      
+	                else { if (commandMgr.reponse[0].equals("PASV"))  {commandInvoker.invoke("PASV");}      
 	                else { if (commandMgr.reponse[0].equals("LIST"))  {commandInvoker.invoke("LIST");} 
 	                else { if (commandMgr.reponse[0].equals("CWD"))   {commandInvoker.invoke("CWD");} 
 	                else { if (commandMgr.reponse[0].equals("CDUP"))  {commandInvoker.invoke("CDUP");} 
@@ -71,7 +70,7 @@ public class FtpRequest implements Runnable {
 	                else { if (commandMgr.reponse[0].equals("DELE"))  {commandInvoker.invoke("DELE");}
 	                else { if (commandMgr.reponse[0].equals("MKD"))   {commandInvoker.invoke("MKD");}
 	                else { if (commandMgr.reponse[0].equals("RMD"))   {commandInvoker.invoke("RMD");}
-	                }}}}}}}}}}}}}}}
+	                }}}}}}}}}}}}}}
 	                
 	                commandMgr.setReponse(commandMgr.getBufferedReader().readLine().split(" "));
                 }
