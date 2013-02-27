@@ -1,4 +1,5 @@
-package Serveur;
+package Serveur ;
+
 import java.io.IOException;
 import java.net.Socket;
 import commandes.CommandInvoker;
@@ -24,8 +25,8 @@ public class FtpRequest implements Runnable {
 	/**
 	 * Public Constructor
 	 * @param server Socket de connection
-	 * @param port port d'écoute du server
-	 * @param num numéro de la connection
+	 * @param port port d'ecoute du server
+	 * @param num numero de la connection
 	 */
 	public FtpRequest(Socket server, int port, int num){
 		int portPasv = 3929;

@@ -4,12 +4,24 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+/**
+ * Classe CommandUser contenant la methode d'execution du process USER
+ * 
+ * @author Jeremie Samson - Victor Paumier 
+ */
 public class CommandUser extends Command {
 
+	/**
+	 * Public Constructor
+	 * @param commandMgr Manager du design pattern commande
+	 */
 	public CommandUser(CommandMgr commandMgr){
 		this.commandMgr = commandMgr;
 	}
 	
+	/**
+	 * Execute le process USER : verifie le nom d'utilisateur du client
+	 */
 	public void executer() throws IOException {
 		commandMgr.user = commandMgr.reponse[1];
 		
