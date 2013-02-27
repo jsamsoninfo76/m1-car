@@ -1,0 +1,121 @@
+Implémentation d'un serveur FTP en JAVA
+Jérémie Samson
+Victor Paumier
+26/02/2013
+
+#####################################
+
+	Introduction :
+
+	Le but de ce TP est d'implementer un serveur FTP.
+	Ce serveur FTP permet la plupart des principales commandes d'un serveur de ce type.
+	Il implément le design patter control et autorise le multi-utilisateur
+	
+	Pour plus d’informations sur le protocole FTP :
+	http://www.faqs.org/rfcs/rfc959.html
+	http://www.w3.org/Protocols/rfc959/
+
+#####################################
+
+	Architecture :
+
+	L'architecture ce compose de 3 packages :
+	
+		- Serveur : 
+			- Main : Classe Main correspondant au main qui initialise le serveur et gére les nouvelles connexions
+			- FtpRequest : Classe FtpRequest correspondant a un thread qui traite les requètes clients et appelle les commandes
+		
+		- Recepteur
+			- Recepteur :  Classe Recepteur qui affiche sur le serveur les commandes effectuees
+			
+		- Commandes
+			- Command : Classe abstraite Command
+			- Command : Classe CommandCdup contenant la methode d'execution du process CDUP
+			- Command : Classe CommandCwd contenant la methode d'execution du process CWD
+			- Command : Classe CommandDele contenant la methode d'execution du process DELE
+			- Command : Classe CommandFeat contenant la methode d'execution du process FEAT
+			- Command : Classe CommandHello contenant la methode d'execution du process HELLO
+			- Command : Classe CommandInvoker permet d'invoquer les commandes et de les executer
+			- Command : Classe CommandList contenant la methode d'execution du process LIST
+			- Command : Classe CommandMgr gere les donnees de la connexion
+			- Command : Classe CommandMkd contenant la methode d'execution du process MKD
+			- Command : Classe CommandPass contenant la methode d'execution du process PASS
+			- Command : Classe CommandPasv contenant la methode d'execution du process PASV
+			- Command : Classe CommandPwd contenant la methode d'execution du process PWD
+			- Command : Classe CommandRetr contenant la methode d'execution du process RETR
+			- Command : Classe CommandRmd contenant la methode d'execution du process RMD
+			- Command : Classe CommandStor contenant la methode d'execution du process STOR
+			- Command : Classe CommandSyst contenant la methode d'execution du process SYST
+			- Command : Classe CommandTypeI contenant la methode d'execution du process TYPEI
+			- Command : Classe CommandUser contenant la methode d'execution du process USER
+		
+## Code, sample :
+//CommandStor
+public void executer() throws IOException {
+		// TODO Auto-generated method stub
+		FileOutputStream fos = null;
+		commandMgr.socketDonnee = null;
+		File file = new File(commandMgr.directory + "/"+ commandMgr.reponse[1]);
+		fos = new FileOutputStream(file);
+		commandMgr.socketDonnee = commandMgr.serverSocketDonnee.accept();
+		commandMgr.dataOutputStreamControl.writeBytes("150 Opening " + commandMgr.directory.getAbsolutePath()
+				+ commandMgr.reponse[1] + " mode data connection.\n");
+
+		InputStream in = commandMgr.socketDonnee.getInputStream();
+
+		byte buf[] = new byte[1024];
+		int nread;
+		while ((nread = in.read(buf)) > 0) {
+			fos.write(buf, 0, nread);
+		}
+		fos.flush();
+		fos.close();
+		commandMgr.serverSocketDonnee.close();
+		commandMgr.recepteur.stor();
+		commandMgr.dataOutputStreamControl.writeBytes("226 File successfully transferred\n");
+}
+
+//Main -> Boucle permettant la multiconnexion
+try{
+                ServerSocket listener = new ServerSocket(port);
+                Socket server;
+
+		while((numeroSocket++ < maxConnections) || (maxConnections == 0)){
+	       	      server = listener.accept();
+	              FtpRequest conn_c= new FtpRequest(server, port, numeroSocket);
+        	      Thread t = new Thread(conn_c);
+	              t.start();
+        	}
+    } catch (IOException ioe) {
+      	System.out.println("IOException on socket listen: " + ioe);
+      	ioe.printStackTrace();
+    }
+}
+
+//FtpRequest -> Boucle pour le ProcessRequest
+  /* ProcessRequest */
+                while(commandMgr.reponse!=null) 
+                {
+                        if (commandMgr.reponse[0].equals("USER"))               {commandInvoker.invoke("USER");}
+                        else { if (commandMgr.reponse[0].equals("PASS"))  {commandInvoker.invoke("PASS");} 
+                        else { if (commandMgr.reponse[0].equals("SYST"))  {commandInvoker.invoke("SYST");}
+                        else { if (commandMgr.reponse[0].equals("FEAT"))  {commandInvoker.invoke("FEAT");}
+                        else { if (commandMgr.reponse[0].equals("PWD"))   {commandInvoker.invoke("PWD");}
+                        else { if (commandMgr.reponse[0].equals("TYPE"))  {commandInvoker.invoke("TYPE I");}
+                        else { if (commandMgr.reponse[0].equals("PASV"))  {commandInvoker.invoke("PASV");}      
+                        else { if (commandMgr.reponse[0].equals("LIST"))  {commandInvoker.invoke("LIST");} 
+                        else { if (commandMgr.reponse[0].equals("CWD"))   {commandInvoker.invoke("CWD");} 
+                        else { if (commandMgr.reponse[0].equals("CDUP"))  {commandInvoker.invoke("CDUP");} 
+                        else { if (commandMgr.reponse[0].equals("RETR"))  {commandInvoker.invoke("RETR");} 
+                        else { if (commandMgr.reponse[0].equals("STOR"))  {commandInvoker.invoke("STOR");} 
+                        else { if (commandMgr.reponse[0].equals("DELE"))  {commandInvoker.invoke("DELE");}
+                        else { if (commandMgr.reponse[0].equals("MKD"))   {commandInvoker.invoke("MKD");}
+                        else { if (commandMgr.reponse[0].equals("RMD"))   {commandInvoker.invoke("RMD");}
+                        }}}}}}}}}}}}}}
+                        
+                        commandMgr.setReponse(commandMgr.getBufferedReader().readLine().split(" "));
+                }
+
+
+
+
