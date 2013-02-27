@@ -3,12 +3,24 @@ package commandes;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * Classe CommandPasv contenant la methode d'execution du process PASV
+ * 
+ * @author Jeremie Samson - Victor Paumier 
+ */
 public class CommandPasv extends Command {
 	
+	/**
+	 * Public Constructor
+	 * @param commandMgr Manager du design pattern commande
+	 */
 	public CommandPasv(CommandMgr commandMgr){
 		this.commandMgr = commandMgr;
 	}
 	
+	/**
+	 * Execute le process PASV : passe en mode passif
+	 */
 	public void executer() throws IOException {
 		commandMgr.portPasv++;
 		commandMgr.setPortPasv(commandMgr.portPasv);
