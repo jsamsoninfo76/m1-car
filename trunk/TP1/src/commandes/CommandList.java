@@ -4,12 +4,24 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Classe CommandList contenant la methode d'execution du process LIST
+ * 
+ * @author Jeremie Samson - Victor Paumier 
+ */
 public class CommandList extends Command {
 
+	/**
+	 * Public Constructor
+	 * @param commandMgr Manager du design pattern commande
+	 */
 	public CommandList(CommandMgr commandMgr){
 		this.commandMgr = commandMgr;
 	}
 	
+	/**
+	 * Execute le process LIST : liste le contenu du repertoire courant
+	 */
 	public void executer() throws IOException {
 		commandMgr.dataOutputStreamControl.writeBytes("150 Here comes the directory listing. \n");
 		commandMgr.socketDonnee = commandMgr.serverSocketDonnee.accept();

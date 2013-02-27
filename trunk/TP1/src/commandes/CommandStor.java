@@ -5,12 +5,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Classe CommandStor contenant la methode d'execution du process STOR
+ * 
+ * @author Jeremie Samson - Victor Paumier 
+ */
 public class CommandStor extends Command {
 
+	/**
+	 * Public Constructor
+	 * @param commandMgr Manager du design pattern commande
+	 */
 	public CommandStor(CommandMgr commandMgr){
 		this.commandMgr = commandMgr;
 	}
 	
+	/**
+	 * Execute le process STOR : recupèrer un fichier depuis le client
+	 */
 	public void executer() throws IOException {	
 		File fichier = new File(commandMgr.directory.getAbsolutePath()+"/"+commandMgr.reponse[1]);
         if(fichier.isDirectory()) {
