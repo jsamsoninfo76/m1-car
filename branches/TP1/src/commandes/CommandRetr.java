@@ -1,20 +1,30 @@
 package commandes;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * Classe CommandRetr contenant la methode d'execution du process RETR
+ * 
+ * @author Jeremie Samson - Victor Paumier 
+ */
 public class CommandRetr extends Command {
 
-	public CommandRetr(CommandMgr commandMgr) {
-		this.commandMgr = commandMgr;
-	}
-
+	/**
+     * Public Constructor
+     * @param commandMgr Manager du design pattern commande
+     */
+    public CommandRetr(CommandMgr commandMgr){
+            this.commandMgr  = commandMgr;
+    }
+    
+    /**
+     * Execute le process RETR : envoie un fichier au client
+     */
 	public void executer() throws IOException {
-		// TODO Auto-generated method stub
-		FileInputStream fis = null;
+		
 		commandMgr.socketDonnee = null;
-		fis = new FileInputStream(commandMgr.directory + "/" + commandMgr.reponse[1]);
+		FileInputStream fis = new FileInputStream(commandMgr.directory + "/" + commandMgr.reponse[1]);
 		commandMgr.socketDonnee = commandMgr.serverSocketDonnee.accept();
 
 		commandMgr.dataOutputStreamControl.writeBytes("150 Opening " + commandMgr.directory.getAbsolutePath()
@@ -23,7 +33,7 @@ public class CommandRetr extends Command {
 		
 		byte buf[] = new byte[1024];
 		int nread;
-		System.out.println("ici");
+		
 		while ((nread = fis.read(buf)) > 0) {
 			commandMgr.outputStreamDonnee.write(buf, 0, nread);
 		}
@@ -39,6 +49,7 @@ public class CommandRetr extends Command {
 		
 		commandMgr.dataOutputStreamControl.writeBytes("226 File successfully transferred\n");
 		commandMgr.recepteur.retr();
+
 	}
 
 }
